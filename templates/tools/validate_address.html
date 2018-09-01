@@ -1,0 +1,28 @@
+{% extends "base/_base.html" %}
+{% block title %}<title>工具 -币可盈 </title>{% endblock %}
+{% block keywords %}  <meta name="keywords" content="比特币地址有效性验证 -币可盈" />{% endblock %}
+{% block desc %} <meta name="description" content="比特币地址有效性验证-币可盈" />{% endblock %}
+{% block content %}
+<div class="ui text container">
+<div class="ui raised segment">
+{% if messages %}
+<ul class="messages">
+    {% for message in messages %}
+    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+    {% endfor %}
+</ul>
+{% endif %}
+
+<form method="POST" action="." class="ui form">{% csrf_token %}
+  <div class="field">
+    <label>请输入您要验证的比特币地址</label>
+    <input type="text" name="address" placeholder="btc address ">
+  </div>
+  <button class="ui button" type="submit">开始验证</button>
+</form>
+
+</div>
+</div>
+{% endblock %}
+
+

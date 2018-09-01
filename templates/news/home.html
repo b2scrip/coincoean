@@ -1,0 +1,67 @@
+{% extends "base/_base.html" %}
+{% load thumbnail %}
+{% block title %}<title>新闻-币可盈 </title>{% endblock %}
+{% block keywords %}  <meta name="keywords" content="新闻 -币可盈" />{% endblock %}
+{% block desc %} <meta name="description" content="新闻 -币可盈" />{% endblock %}
+
+{% block content %}
+<div class="ui container">
+    <div class="ui grid">
+      <div class="sixteen wide column"></div>
+{% for news in qs_news %}
+<div class="ui link cards">
+  <div class="card">
+    <div class="image">
+      <img src="{% thumbnail news.image 100x120 crop %}" alt="" />
+    </div>
+    <div class="content">
+      <div class="description">
+        <p><a href="/news/detail/{{news.id}}/">{{news.title}}</a></p>
+      </div>
+    </div>
+    <div class="extra content">
+      <span class="right floated">
+       <a href="/news/detail/{{news.id}}/"> {{news.updated}}</a>
+      </span>
+      <span>
+        <i class="eye icon"></i>
+        <a href="/news/detail/{{news.id}}/">{{news.viewcount}}</a>
+      </span>
+    </div>
+  </div>
+</div>
+{% endfor %}
+</div>
+<br><br>
+<div class="sixteen wide column"></div>
+<div class="ui pagination menu">
+{% if page_obj.has_previous %}
+    <div class="item"><a href="?page={{ page_obj.previous_page_number }}"><i class="angle left icon"></i></a></li>
+{% else %}
+    <div class="disabled item"><span><i class="angle left icon" aria-hidden="true"></i></span></div>
+{% endif %}
+{% if page_obj.number|add:'-4' > 1 %}
+    <div class="item"><a href="?page={{ page_obj.number|add:'-5' }}">&hellip;</a></div>
+{% endif %}
+{% for i in page_obj.paginator.page_range %}
+    {% if page_obj.number == i %}
+        <div class="active item"><span>{{ i }} <span class="sr-only"></span></span></div>
+    {% elif i > page_obj.number|add:'-5' and i < page_obj.number|add:'5' %}
+        <div class="item"><a href="?page={{ i }}">{{ i }}</a></div>
+    {% endif %}
+{% endfor %}
+
+{% if page_obj.paginator.num_pages > page_obj.number|add:'4' %}
+    <div class="item"><a href="?page={{ page_obj.number|add:'5' }}">&hellip;</a></div>
+{% endif %}
+
+{% if page_obj.has_next %}
+    <div class="item"><a href="?page={{ page_obj.next_page_number }}"><i class="angle right icon"></i></i></a></div>
+{% else %}
+    <div class="disabled item"><span><i class="angle right icon"></i></i></span></div>
+{% endif %}
+</div>
+</div>
+</div>
+<br>
+{% endblock %}

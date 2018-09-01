@@ -1,0 +1,24 @@
+{% extends "base/_base.html" %}
+{% block title %}<title>>比特币实时价格 - 币可盈</title>{% endblock %}
+{% block keywords %}  <meta name="keywords" content="比特币实时价格 -币可盈" />{% endblock %}
+{% block desc %} <meta name="description" content="比特币实时价格 -币可盈" />{% endblock %}
+{% block content %}
+<div class="ui text container">
+<div class="ui raised segment">
+    <div class="btcwdgt-chart"></div>
+    </div>
+</div>
+{% endblock %}
+
+{% block custom_footer_js %}
+<script>
+  (function(b,i,t,C,O,I,N) {
+    window.addEventListener('load',function() {
+      if(b.getElementById(C))return;
+      I=b.createElement(i),N=b.getElementsByTagName(i)[0];
+      I.src=t;I.id=C;N.parentNode.insertBefore(I, N);
+    },false)
+  })(document,'script','https://widgets.bitcoin.com/widget.js','btcwdgt');
+</script>
+{% endblock %}
+

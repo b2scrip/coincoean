@@ -1,0 +1,72 @@
+{% extends "base/_base.html" %}
+{% load eos_tags %}
+{% block title %}<title>EOS -币可盈 </title>{% endblock %}
+{% block keywords %}  <meta name="keywords" content="EOS -币可盈" />{% endblock %}
+{% block desc %} <meta name="description" content="EOS -币可盈" />{% endblock %}
+
+{% block content %}
+<div class="ui container">
+{% for question in questions %}
+<div class="question-summary narrow" id="question-summary-52118034">
+    <div onclick="window.location.href='/eos/detail/{{question.id}}'" class="cp">
+        <div class="votes">
+            <div class="mini-counts"><span title="{{question.score}} votes">{{question.score}}</span></div>
+            <div>得分</div>
+        </div>
+        <div class="status unanswered">
+            <div class="mini-counts"><span title="{{question.answercount}} answers">{{question.answercount}}</span></div>
+            <div>回答</div>
+        </div>
+        <div class="views">
+            <div class="mini-counts"><span title="{{question.viewcount}} views">{{question.viewcount}}</span></div>
+            <div>访问</div>
+        </div>
+    </div>
+    <div class="summary">
+        
+        
+        <h3><a href="/eos/detail/{{question.id}}" class="question-hyperlink">{{question.title}}</a></h3>
+        <div class="tags">
+		{{question|tag_it|safe}}
+        </div>
+        <div class="started">
+            <a href="/eos/detail/{{question.id}}" class="started-link">时间: <span title="{{question.origindate}}" class="relativetime">{{question.origindate}}</span></a>
+        </div>
+    </div>
+</div>
+{% endfor %}
+
+<div class="ui pagination menu">
+
+{% if page_obj.has_previous %}
+    <div class="item"><a href="?page={{ page_obj.previous_page_number }}"><i class="angle left icon"></i></a></li>
+{% else %}
+    <div class="disabled item"><span><i class="angle left icon" aria-hidden="true"></i></span></div>
+{% endif %}
+
+{% if page_obj.number|add:'-4' > 1 %}
+    <div class="item"><a href="?page={{ page_obj.number|add:'-5' }}">&hellip;</a></div>
+{% endif %}
+
+{% for i in page_obj.paginator.page_range %}
+    {% if page_obj.number == i %}
+        <div class="active item"><span>{{ i }} <span class="sr-only"></span></span></div>
+    {% elif i > page_obj.number|add:'-5' and i < page_obj.number|add:'5' %}
+        <div class="item"><a href="?page={{ i }}">{{ i }}</a></div>
+    {% endif %}
+{% endfor %}
+
+{% if page_obj.paginator.num_pages > page_obj.number|add:'4' %}
+    <div class="item"><a href="?page={{ page_obj.number|add:'5' }}">&hellip;</a></div>
+{% endif %}
+
+{% if page_obj.has_next %}
+    <div class="item"><a href="?page={{ page_obj.next_page_number }}"><i class="angle right icon"></i></i></a></div>
+{% else %}
+    <div class="disabled item"><span><i class="angle right icon"></i></i></span></div>
+{% endif %}
+
+</div>
+</div>
+</div>
+{% endblock %}

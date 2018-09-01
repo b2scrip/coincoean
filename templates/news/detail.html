@@ -1,0 +1,39 @@
+{% extends "base/_base.html" %}
+{% load thumbnail %}
+{% block title %}<title>{{news.title}} - 币可盈</title>{% endblock %}
+{% block keywords %}  <meta name="keywords" content="{{news.title}}" />{% endblock %}
+{% block desc %} <meta name="description" content="{{news.title}} " />{% endblock %}
+{% block content %}
+<div class="main ui container">
+<div class="ui grid">
+  <div class="twelve wide column">
+     <div id="news-header">
+        <h1 itemprop="name"><a href="/news/detail/{{news.id}}/" class="news-hyperlink">{{news.title}}</a></h1></div>
+          <div class="fourteen wide column">
+            <div class="postcell post-layout--right">
+                    <div class="post-text" itemprop="text">
+			<br><br>
+			<img src="{% thumbnail news.image 800x800 crop %}" alt="" />
+                       {{news.content|safe}}
+                    </div>
+                  </div>
+        </div>
+   </div>
+
+  <div class="four wide column">
+     <div class="ui segment">
+             <div class="ui small header"><p>原数据</p></div>
+             日期:{{news.updated}}<br>
+              访问次数:{{news.viewcount}}<br>
+      </div>
+     <div class="ui segment">
+             <div class="ui small header"><p>推荐内容</p></div>
+		{% for post in re_posts %}
+		    <p><a href="/news/detail/{{post.id}}">{{post.title}}</a></p>
+		{% endfor %}
+     </div> 
+  </div>
+</div>
+</div> <!--end main-->
+{% endblock %}
+

@@ -1,0 +1,78 @@
+{% extends "base/_base.html" %}
+{% block title %}<title>{{question.title}} - 币可盈</title>{% endblock %}
+{% block keywords %}  <meta name="keywords" content="{{question.title}}" />{% endblock %}
+{% block desc %} <meta name="description" content="{{question.title}} " />{% endblock %}
+{% block content %}
+<div class="main ui container">
+<div class="ui grid">
+  <div class="twelve wide column">
+     <div id="question-header"><h1 itemprop="name"><a href="/eth/detail/{{question.id}}/" class="question-hyperlink">{{question.title}}</a></h1></div>
+     <div class="ui grid">
+          <div class="two wide column">
+            <div class="ui vertical divider"><a class="ui blue circular label">{{question.score}}</a></div>
+          </div>
+          <div class="fourteen wide column">
+            <div class="postcell post-layout--right">
+                    <div class="post-text" itemprop="text">
+                       {{question.content|safe}}
+                       {% if tags %}
+                       {% for tag in tags %}<a class="ui tag label">{{tag}}</a>{% endfor %}
+                       {% endif %}
+                    </div>
+                  </div>
+          </div>
+        </div>
+<div class="ui horizontal divider"> {{question.answercount}}个回答</div>
+<div class="answercell post-layout--right">
+      <div class="post-text" itemprop="text">
+                   {% if answers %}
+                      {% for answer in answers %}
+                    <div class="ui grid">
+                      <div class="two wide column">
+                         <div class="ui vertical divider">
+                            <a class="ui blue circular label">{{answer.score}}</a>
+                         </div>
+                      </div>
+                      <div class="fourteen wide column">
+                        {{answer.content|safe}}
+                      </div><hr>
+                    </div>
+                      {% endfor %}
+                    {% endif %}
+
+      </div>
+</div>
+  </div>
+
+  <div class="four wide column">
+     <div class="ui segment">
+             <div class="ui small header"><p>原数据</p></div>
+             日期:{{question.origindate}}<br>
+              访问次数:{{question.viewcount}}<br>
+            Score:{{question.score}}<br>
+             </div>
+
+            <div class="ui segment">
+              <div class="ui small header"><p>推荐</p></div>
+                    <div class="ui list">
+                       {% for question in re_posts %}
+                       <a href="/eth/detail/{{question.id}}/" class="item">{{question.title}}</a><br>
+                       {% endfor %}
+                    </div>
+              </div>
+            </div>
+          </div> 
+  </div>
+</div>
+</div> <!--end main-->
+{% endblock %}
+{% block custom_footer_js %}
+<script type="text/javascript" src="/static/editor/release/wangEditor.min.js"></script>
+    <script type="text/javascript">
+        var E = window.wangEditor
+        var editor = new E('#editor')
+        // 或者 var editor = new E( document.getElementById('editor') )
+        editor.create()
+    </script>
+{% endblock %}
+

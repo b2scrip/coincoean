@@ -1,0 +1,75 @@
+{% extends "base/_base.html" %}
+{% load thumbnail %}
+{% block title %}<title>币可盈 区块链问答社区 </title>{% endblock %}
+{% block keywords %}  <meta name="keywords" content="币可盈国内领先的区块链问答社区,比特币,EOS,ETH交流" />{% endblock %}
+{% block desc %} <meta name="description" content="币可盈是国内首个利用人工智能翻译共享区块链知识的网站，这里可以与全世界的区块链爱好者一起交流技术、思想和前沿的思考,你可以找到关于比特币，EOS币，以太坊的相关问题" />{% endblock %}
+{% block head_css %}
+<link  href="http://cdnjs.cloudflare.com/ajax/libs/fotorama/4.6.4/fotorama.css" rel="stylesheet"> 
+{% endblock %}
+{% block content %}
+<div class="ui container">
+
+<div class="ui grid">
+  <div class="sixteen wide column">
+<!--<div class="ui small header"><p>咨询</p></div>-->
+  </div>
+  <div class="ten wide column">
+
+<div class="fotorama">
+{% for news in top_news %}
+<img src="{% thumbnail news.image 800x800 crop %}" alt="" />
+{% endfor %}
+</div>
+</div>
+  <div class="six wide column ">
+
+<div class="ui secondary pointing menu">
+  <a class="item active">
+   最新
+  </a>
+</div>
+<div class="ui segment">
+  {% for news in top_news %}
+      <h3><a href="/news/detail/{{news.id}}/"> {{news.title}}</a></h3>
+   {% endfor %}
+</div>
+  </div>
+</div>
+
+<div class="ui grid">
+  <div class="four wide column">
+	<div class="ui small header"><p>BTC <a href="/btc/">更多</a></p></div>
+	{% for question in top_btc %}
+		<div class="ui segment">
+		<a href=/btc/detail/{{question.id}}/> <p class="ui red circular label">{{question.viewcount}}</p> {{question.title}} </a>
+		</div>
+	{% endfor %}
+    </div>
+
+  <div class="four wide column">
+		<div class="ui small header"><p>ETH<a href="/eth/">更多</a></p></div>
+		{% for question in top_eth %}
+                <div class="ui  segment">
+			<a href=/eth/detail/{{question.id}}/> <p class="ui red circular label">{{question.viewcount}}</p> {{question.title}} </a>
+		</div>
+		{% endfor %}
+    </div>
+
+  <div class="four wide column">
+		<div class="ui small header"><p>EOS<a href="/eos/">更多</a></p></div>
+		{% for question in top_eos %}
+		<div class="ui segment">
+		<a href=/eos/detail/{{question.id}}/> <p class="ui red circular label">{{question.viewcount}}</p> {{question.title}} </a>
+		</div>
+		{% endfor %}
+    </div>
+  </div>
+</div>
+
+<br><br><br>
+
+{% endblock %}
+{% block custom_footer_js %}
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script> <!-- 33 KB -->
+<script src="http://cdnjs.cloudflare.com/ajax/libs/fotorama/4.6.4/fotorama.js"></script> <!-- 16 KB -->
+{% endblock %}
